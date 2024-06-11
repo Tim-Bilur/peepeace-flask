@@ -10,9 +10,9 @@ try:
         value = adc.value
         
         # Convert analog value to pH (adjust as per your calibration)
-        pH = value * 3.3 / 1023.0
+        pH = value * 3.3 / 4096.0
         
         print("pH:", pH)
-        sleep(1)
+        sleep(5)
 except KeyboardInterrupt:
     pass

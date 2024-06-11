@@ -1,29 +1,46 @@
 import requests
 
-# Define the URL for the GET request
-url = "https://peepeace-app-default-rtdb.asia-southeast1.firebasedatabase.app/urine_reports.json"
+def get_relayph_from_firebase(url):
+    """
+    Retrieves the 'relayPH' value from Firebase.
 
-# Perform the GET request to retrieve the current data
-response_before = requests.get(url)
-data_before = response_before.json()
-print("Data before update:", data_before)
+    Args:
+    url (str): The URL to perform the GET request.
 
-# Define the URL for the PUT request
-url = "https://peepeace-app-default-rtdb.asia-southeast1.firebasedatabase.app/urine_reports.json"
+    Returns:
+    bool: The 'relayPH' value retrieved from Firebase, or None if the request fails.
+    """
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        relayph_value = data.get('relayPH')
+        if relayph_value is not None:
+            return relayph_value
+        else:
+            print("Failed to retrieve 'relayPH' value from Firebase.")
+            return None
+    else:
+        print(f"Failed to retrieve data from Firebase. HTTP Status code: {response.status_code}")
+        return None
 
-# Data to be updated
-updated_data = {"relayPH": True}
+def update_relayph_in_firebase(url, new_relayph):
+    """
+    Updates the 'relayPH' value in Firebase.
 
-# Perform the PUT request without authentication
-response = requests.put(url, json=updated_data)
+    Args:
+    url (str): The URL to perform the PUT request.
+    new_relayph (bool): The new value for 'relayPH'.
 
-# Check if the request was successful
-if response.status_code == 200:
-    print("Data updated successfully.")
-else:
-    print(f"Failed to update data. HTTP Status code: {response.status_code}")
-
-# Perform another GET request to retrieve the updated data
-response_after = requests.get(url)
-data_after = response_after.json()
-print("Data after update:", data_after)
+    Returns:
+    bool: True if the update was successful, False otherwise.
+    """
+    updated_data = {
+        'relayPH': new_relayph
+    }
+    response = requests.put(url, json=updated_data)
+    if response.status_code == 200:
+        print("RelayPH value updated successfully.")
+        return True
+    else:
+        print(f"Failed to update RelayPH value in Firebase. HTTP Status code: {response.status_code}")
+        return False
