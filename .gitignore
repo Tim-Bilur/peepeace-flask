@@ -1,2 +1,11 @@
 .venv
 tmp
+__pycache__
+
+# # In development branch flask
+# colors5.py
+# firebase.py
+# raspi_ph.py
+# raspicam.py
+# test_connect.py
+# webcam.py
