@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-img = cv2.imread("urine.jpg")
+img = cv2.imread("/tmp/urine3.webp")
 cv2.imshow("Original Image", img)
 cv2.waitKey(0)
 hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
