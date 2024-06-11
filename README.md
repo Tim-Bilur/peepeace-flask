@@ -17,3 +17,21 @@ I will give you step by step to running this project
 ## Run the project
 
 `python app.py`
+
+# Running on Linux
+
+## Make a virtual-environment first
+
+`python3 -m venv .venv`
+
+## Activate virtual-environment
+
+`source .\venv\Scripts\activate`
+
+## Install package and dependecies
+
+`pip install -r requirements.txt`
+
+## Run the project
+
+`python app.py`
