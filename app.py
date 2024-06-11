@@ -2,24 +2,10 @@
 
 from flask import Flask, jsonify, request
 import requests
+from utils.firebase2 import update_firebase_data
 
 # Define the URL for the GET request
 url = "https://peepeace-app-default-rtdb.asia-southeast1.firebasedatabase.app/urine_reports.json"
-
-
-def update_firebase_data(data):
-    """
-    Update data in Firebase Realtime Database.
-
-    Args:
-    data (dict): Dictionary containing fields to update.
-
-    Returns:
-    dict: JSON response from the Firebase API.
-    """
-    response = requests.put(url, json=data)
-    return response.json(), response.status_code
-
 
 app = Flask(__name__)
 
@@ -40,7 +26,7 @@ def firebase_response():
 def update_firebase():
     data = request.json
     if data:
-        response, status_code = update_firebase_data(data)
+        response, status_code = update_firebase_data(url, data)  # Fix the function call
         return jsonify(response), status_code
     else:
         return jsonify({"error": "No data provided for update."}), 400
