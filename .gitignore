@@ -9,3 +9,6 @@ raspi_ph.py
 raspicam.py
 test_connect.py
 webcam.py
+testing
+.env
+imgkit.py
