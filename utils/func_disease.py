@@ -59,10 +59,12 @@ def predict_disease_from_urine(rgb_tuple, ph_value):
 
     # Combine or choose one of the predictions based on your application logic
     # For example, here we choose to return the prediction from color if available, otherwise from pH
+    disease = f"{disease_from_color}, {disease_from_ph}"
+    
     if disease_from_color != "Unknown":
         return {
             "name_color": predicted_color,
-            "disease": [disease_from_color, disease_from_ph],
+            "disease": disease,
             "pH": ph_value,
         }
     else:
