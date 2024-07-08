@@ -31,22 +31,22 @@ def predict_disease_from_urine_color(rgb_tuple):
 
 # Define a function to predict diseases based on urine pH value
 def predict_disease_from_urine_ph(ph_value):
-    # Example mappings (replace with actual disease mappings)
-    ph_to_disease = {
-        5.0: "Acidosis ringan",
-        5.5: "Acidosis",
-        6.0: "Normal",
-        6.5: "Normal",
-        7.0: "Normal",
-        7.5: "Alkalosis",
-        8.0: "Alkalosis",
-        8.5: "Alkalosis ringan",
-    }
+    # Define pH ranges and corresponding diseases
+    ph_to_disease_ranges = [
+        (4.5, 5.5, "Acidosis ringan"),
+        (5.5, 6.0, "Acidosis"),
+        (6.0, 7.5, "Normal"),
+        (7.5, 8.0, "Alkalosis"),
+        (8.0, 8.5, "Alkalosis ringan")
+    ]
 
-    # Lookup disease based on pH value
-    predicted_disease = ph_to_disease.get(ph_value, "Unknown")
+    # Lookup disease based on pH value range
+    for start, end, disease in ph_to_disease_ranges:
+        if start <= ph_value < end:
+            return disease
 
-    return predicted_disease
+    # If pH value is out of defined ranges, return "Unknown"
+    return "Unknown"
 
 
 # Define a function to predict diseases based on both urine color (rgb_tuple) and pH value
@@ -63,7 +63,7 @@ def predict_disease_from_urine(rgb_tuple, ph_value):
         return {
             "pH": ph_value,
             "name_color": predicted_color,
-            "disease": disease_from_color,
+            "disease": [disease_from_color, disease_from_ph],
         }
     else:
         return {"pH": ph_value, "name_color": "Unknown", "disease": disease_from_ph}
