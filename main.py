@@ -11,13 +11,21 @@ from utils.func_motor_control import (
 from utils.firebase2 import get_relayph_from_firebase, update_relayph_in_firebase
 import time
 import RPi.GPIO as GPIO
+from utils.config import get_firebase
+
+url = get_firebase()
+
+url_index = f"{url}.json"
+url_update_data = f"{url}/data"
+url_update_relay = f"{url}/relay"
 
 if __name__ == "__main__":
     try:
         while True:
-            relayph_value = get_relayph_from_firebase()
+            relayph_value = get_relayph_from_firebase(url_index)
             if relayph_value:
                 # Menangkap Gambar
+                print("Capture Image")
                 capture_image()
 
                 # Motor Stepper Memutar ke bawah
@@ -26,10 +34,10 @@ if __name__ == "__main__":
 
                 # Rotate clockwise
                 print("Rotating 360 degrees clockwise")
-                rotate_clockwise(steps_per_revolution, delay)
+                # rotate_clockwise(steps_per_revolution, delay)
 
                 # Wait for 5 seconds
-                print("Waiting for 5 seconds")
+                print("Waiting for 3 seconds for pH")
                 time.sleep(3)
 
                 # Sensor pH
@@ -44,7 +52,7 @@ if __name__ == "__main__":
 
                 # Motor Stepper Memutar ke atas
                 print("Rotating 360 degrees counter-clockwise")
-                rotate_counterclockwise(steps_per_revolution, delay)
+                # rotate_counterclockwise(steps_per_revolution, delay)
 
                 # Predik warna
                 image_path = "tmp/captured_image.jpg"
@@ -56,7 +64,7 @@ if __name__ == "__main__":
                 result = predict_disease_from_urine(rgb_value, ph_value)
 
                 # Upload imgkit
-                upload_result = upload_image(image_path)
+                upload_result, random_file_name = upload_image(image_path)
                 if upload_result:
                     print("Upload result:", upload_result)
 

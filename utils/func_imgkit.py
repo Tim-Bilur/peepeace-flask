@@ -30,7 +30,7 @@ def upload_image(image_path):
             options=UploadFileRequestOptions(use_unique_file_name=False),
         )
         print("Upload successful:", upload)
-        return upload  # Return the upload response if needed
+        return upload, random_file_name  # Return the upload response if needed
 
     except Exception as e:
         print("An error occurred during upload:", e)
