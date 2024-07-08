@@ -37,7 +37,7 @@ def predict_disease_from_urine_ph(ph_value):
         (5.5, 6.0, "Acidosis"),
         (6.0, 7.5, "Normal"),
         (7.5, 8.0, "Alkalosis"),
-        (8.0, 8.5, "Alkalosis ringan")
+        (8.0, 8.5, "Alkalosis ringan"),
     ]
 
     # Lookup disease based on pH value range
@@ -61,9 +61,9 @@ def predict_disease_from_urine(rgb_tuple, ph_value):
     # For example, here we choose to return the prediction from color if available, otherwise from pH
     if disease_from_color != "Unknown":
         return {
-            "pH": ph_value,
             "name_color": predicted_color,
             "disease": [disease_from_color, disease_from_ph],
+            "pH": ph_value,
         }
     else:
         return {"pH": ph_value, "name_color": "Unknown", "disease": disease_from_ph}
