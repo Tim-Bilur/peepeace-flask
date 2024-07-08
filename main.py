@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
                 # Rotate clockwise
                 print("Rotating 360 degrees clockwise")
-                rotate_clockwise(steps_per_revolution, delay)
+                # rotate_clockwise(steps_per_revolution, delay)
 
                 # Wait for 5 seconds
                 print("Waiting for 3 seconds for pH")
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
                 # Motor Stepper Memutar ke atas
                 print("Rotating 360 degrees counter-clockwise")
-                rotate_counterclockwise(steps_per_revolution, delay)
+                # rotate_counterclockwise(steps_per_revolution, delay)
 
                 # Predik warna
                 image_path = "tmp/captured_image.jpg"
@@ -64,7 +64,7 @@ if __name__ == "__main__":
                 result = predict_disease_from_urine(rgb_value, ph_value)
 
                 # Upload imgkit
-                upload_result = upload_image(image_path)
+                upload_result, random_file_name = upload_image(image_path)
                 if upload_result:
                     print("Upload result:", upload_result)
 
