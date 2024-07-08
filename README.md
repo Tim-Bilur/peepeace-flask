@@ -26,12 +26,13 @@ I will give you step by step to running this project
 
 ## Activate virtual-environment
 
-`source .\venv\Scripts\activate`
+`source .venv/bin/activate`
 
 ## Install package and dependecies
 
 `pip install -r requirements.txt`
 
 ## Run the project
+`python3 utils/raspi_ph.py`
 
 `python app.py`
