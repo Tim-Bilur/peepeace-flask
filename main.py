@@ -11,13 +11,21 @@ from utils.func_motor_control import (
 from utils.firebase2 import get_relayph_from_firebase, update_relayph_in_firebase
 import time
 import RPi.GPIO as GPIO
+from utils.config import get_firebase
+
+url = get_firebase()
+
+url_index = f"{url}.json"
+url_update_data = f"{url}/data"
+url_update_relay = f"{url}/relay"
 
 if __name__ == "__main__":
     try:
         while True:
-            relayph_value = get_relayph_from_firebase()
+            relayph_value = get_relayph_from_firebase(url_index)
             if relayph_value:
                 # Menangkap Gambar
+                print("Capture Image")
                 capture_image()
 
                 # Motor Stepper Memutar ke bawah
@@ -29,7 +37,7 @@ if __name__ == "__main__":
                 rotate_clockwise(steps_per_revolution, delay)
 
                 # Wait for 5 seconds
-                print("Waiting for 5 seconds")
+                print("Waiting for 3 seconds for pH")
                 time.sleep(3)
 
                 # Sensor pH
