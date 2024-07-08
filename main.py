@@ -8,7 +8,7 @@ from utils.func_motor_control import (
     rotate_counterclockwise,
     cleanup_gpio,
 )
-from utils.firebase2 import get_relayph_from_firebase, update_relayph_in_firebase
+from utils.firebase2 import get_relayph_from_firebase
 import RPi.GPIO as GPIO
 from utils.config import get_firebase
 import time
@@ -33,22 +33,22 @@ def update_relay_state():
         print(response.json())
 
 
-def update_data():
-    url = "http://127.0.0.1:5000/data"  # Replace with your Flask server's IP and port
-    new_data = {
-        "color": "yellow",
-        "disease_indication": "none",
-        "image": "path/to/image.jpg",
-        "pH": 7,
-    }
-    response = requests.put(url, json=new_data)
+# def update_data():
+#     url = "http://127.0.0.1:5000/data"  # Replace with your Flask server's IP and port
+#     new_data = {
+#         "color": "yellow",
+#         "disease_indication": "none",
+#         "image": "path/to/image.jpg",
+#         "pH": 7,
+#     }
+#     response = requests.put(url, json=new_data)
 
-    if response.status_code == 200:
-        print("Data updated successfully.")
-        print(response.json())
-    else:
-        print(f"Failed to update data. Status code: {response.status_code}")
-        print(response.json())
+#     if response.status_code == 200:
+#         print("Data updated successfully.")
+#         print(response.json())
+#     else:
+#         print(f"Failed to update data. Status code: {response.status_code}")
+#         print(response.json())
 
 
 if __name__ == "__main__":
@@ -102,7 +102,30 @@ if __name__ == "__main__":
 
                 print(result)
 
+                # PUT the data
+                url = "http://127.0.0.1:5000/data"
+
+                new_data = {
+                    "color": result['name_color'],
+                    "disease_indication": result['disease'],
+                    "image": f"https://ik.imagekit.io/peeace/{random_file_name}",
+                    "pH": f"{ph_value:.2f}"
+                }
+
+                print(new_data)
+
+                response = requests.put(url, json=new_data)
+
+                if response.status_code == 200:
+                    print("Data updated successfully.")
+                    print(response.json())
+                else:
+                    print(f"Failed to update data. Status code: {response.status_code}")
+                    print(response.json())
+
+
                 # Nge False Firebase
+                update_relay_state()
 
                 # Exit the program after one iteration
 
