@@ -12,3 +12,9 @@ webcam.py
 testing
 .env
 imgkit.py
+color_prediction.py
+color_prediction2.py
+color_prediction3.py
+predict.py
+raspi_main.py
+main2.py
