@@ -4,6 +4,8 @@ from firebase2 import get_relayph_from_firebase, update_relayph_in_firebase
 
 # Define the GPIO pin for the LED
 LED_PIN = 18
+
+# CHANGE THE LINK
 FIREBASE_URL = "https://peepeace-app-default-rtdb.asia-southeast1.firebasedatabase.app/urine_reports.json"  # Replace with your Firebase URL
 
 

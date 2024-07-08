@@ -3,9 +3,16 @@ tmp
 __pycache__
 
 # # In development branch flask
+# color_prediction.py
 # colors5.py
 # firebase.py
 # raspi_ph.py
 # raspicam.py
+# motor.py
+# predict.py
+# raspi_main.py
+# raspicam.py
 # test_connect.py
+# test.py
 # webcam.py
+# webcam2.py

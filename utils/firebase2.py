@@ -14,7 +14,7 @@ def get_relayph_from_firebase(url):
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
-        relayph_value = data.get("relayPH")
+        relayph_value = data.get("relay")
         if relayph_value is not None:
             return relayph_value
         else:
@@ -38,7 +38,7 @@ def update_relayph_in_firebase(url, new_relayph):
     Returns:
     bool: True if the update was successful, False otherwise.
     """
-    updated_data = {"relayPH": new_relayph}
+    updated_data = {"relay": new_relayph}
     response = requests.put(url, json=updated_data)
     if response.status_code == 200:
         print("RelayPH value updated successfully.")
