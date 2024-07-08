@@ -1,7 +1,10 @@
 import requests
+from utils.config import get_firebase
+
+URL_FIREBASE = get_firebase()
 
 
-def get_relayph_from_firebase(url):
+def get_relayph_from_firebase(url=URL_FIREBASE):
     """
     Retrieves the 'relayPH' value from Firebase.
 
@@ -27,7 +30,7 @@ def get_relayph_from_firebase(url):
         return None
 
 
-def update_relayph_in_firebase(url, new_relayph):
+def update_relayph_in_firebase(new_relayph, url=URL_FIREBASE):
     """
     Updates the 'relayPH' value in Firebase.
 
@@ -50,7 +53,7 @@ def update_relayph_in_firebase(url, new_relayph):
         return False
 
 
-def update_firebase_data(url, data):
+def update_firebase_data(data, url=URL_FIREBASE):
     """
     Update data in Firebase Realtime Database.
 
