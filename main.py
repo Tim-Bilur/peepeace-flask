@@ -9,14 +9,14 @@ from utils.func_motor_control import (
     cleanup_gpio,
 )
 from utils.firebase2 import get_relayph_from_firebase, update_relayph_in_firebase
-import time
 import RPi.GPIO as GPIO
 from utils.config import get_firebase
+import time
 
 url = get_firebase()
 
 url_index = f"{url}.json"
-url_update_data = f"{url}/data"
+url_update_data = f"{url}/data.json"
 url_update_relay = f"{url}/relay"
 
 if __name__ == "__main__":
@@ -75,7 +75,7 @@ if __name__ == "__main__":
                 # Exit the program after one iteration
 
                 print("=======================\nProgram Selesai")
-                break
+                
             else:
                 print("=======================\nProgram Tidak Berjalan")
 
