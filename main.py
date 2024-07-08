@@ -12,12 +12,44 @@ from utils.firebase2 import get_relayph_from_firebase, update_relayph_in_firebas
 import RPi.GPIO as GPIO
 from utils.config import get_firebase
 import time
+import requests
 
 url = get_firebase()
 
 url_index = f"{url}.json"
 url_update_data = f"{url}/data.json"
 url_update_relay = f"{url}/relay"
+
+
+def update_relay_state():
+    url = "http://127.0.0.1:5000/relay"  # Replace with your Flask server's IP and port
+    response = requests.put(url)
+
+    if response.status_code == 200:
+        print("Relay state updated to false successfully.")
+        print(response.json())
+    else:
+        print(f"Failed to update relay state. Status code: {response.status_code}")
+        print(response.json())
+
+
+def update_data():
+    url = "http://127.0.0.1:5000/data"  # Replace with your Flask server's IP and port
+    new_data = {
+        "color": "yellow",
+        "disease_indication": "none",
+        "image": "path/to/image.jpg",
+        "pH": 7,
+    }
+    response = requests.put(url, json=new_data)
+
+    if response.status_code == 200:
+        print("Data updated successfully.")
+        print(response.json())
+    else:
+        print(f"Failed to update data. Status code: {response.status_code}")
+        print(response.json())
+
 
 if __name__ == "__main__":
     try:
