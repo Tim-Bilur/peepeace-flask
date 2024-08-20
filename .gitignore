@@ -19,3 +19,4 @@ color_prediction3.py
 predict.py
 raspi_main.py
 main2.py
+evaluate_model.py
