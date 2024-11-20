@@ -14,6 +14,8 @@ if __name__ == "__main__":
     try:
         while True:
             relayph_value = get_relayph_from_firebase(FIREBASE_URL)
+            
+            print(relayph_value)
             if relayph_value:
 
                 #Menangkap Gambar
