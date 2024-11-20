@@ -29,19 +29,22 @@ def clean_gpio():
     print("GPIO dibersihkan. Program selesai.")
 
 
-def beep_once():
-    """Menyalakan buzzer sekali sebagai alert."""
+def buzzer_control():
+    """Kontrol buzzer dengan hidupkan dan matikan setiap detik."""
     try:
-        setup_gpio()  # Inisialisasi GPIO
-        turn_buzzer_on()
-        time.sleep(1)  # Tahan selama 1 detik atau sesuai kebutuhan Anda
-        turn_buzzer_off()
-    except Exception as e:
-        print(f"Terjadi kesalahan: {e}")
+        while True:
+            turn_buzzer_on()
+            time.sleep(1)  # Tunggu 1 detik
+
+            turn_buzzer_off()
+            time.sleep(1)  # Tunggu 1 detik
+    except KeyboardInterrupt:
+        print("Program dihentikan oleh pengguna.")
     finally:
-        clean_gpio()  # Bersihkan GPIO
+        clean_gpio()
 
 
 # # Main program
 # if __name__ == "__main__":
-#     beep_once()
+#     setup_gpio()  # Inisialisasi GPIO
+#     buzzer_control()  # Jalankan kontrol buzzer

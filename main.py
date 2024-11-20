@@ -8,6 +8,7 @@ from utils.func_motor_control import (
     rotate_counterclockwise,
     cleanup_gpio,
 )
+from utils.func_buzzer import beep_once
 from utils.firebase2 import get_relayph_from_firebase
 import RPi.GPIO as GPIO
 from utils.config import get_firebase
@@ -56,6 +57,10 @@ if __name__ == "__main__":
         while True:
             relayph_value = get_relayph_from_firebase(url_index)
             if relayph_value:
+
+                # [Trigger Buzzer]
+                beep_once()
+
                 # Menangkap Gambar
                 print("Capture Image")
                 capture_image()
@@ -64,6 +69,9 @@ if __name__ == "__main__":
                 steps_per_revolution = 2048  # Number of steps for 360 degrees rotation
                 delay = 0.001  # Delay between steps
 
+                # [Trigger Buzzer]
+                beep_once()
+
                 # Rotate clockwise
                 print("Rotating 360 degrees clockwise")
                 # rotate_clockwise(steps_per_revolution, delay)
@@ -71,6 +79,9 @@ if __name__ == "__main__":
                 # Wait for 5 seconds
                 print("Waiting for 3 seconds for pH")
                 time.sleep(3)
+
+                # [Trigger Buzzer]
+                beep_once()
 
                 # Sensor pH
                 print("Memulai pembacaan sensor pH...")
@@ -81,6 +92,9 @@ if __name__ == "__main__":
                     print(f"Nilai pH Terakhir: {ph_value:.2f}")
                 else:
                     print("Gagal membaca nilai pH dalam batas waktu yang ditentukan...")
+
+                # [Trigger Buzzer]
+                beep_once()
 
                 # Motor Stepper Memutar ke atas
                 print("Rotating 360 degrees counter-clockwise")
@@ -106,13 +120,16 @@ if __name__ == "__main__":
                 url = "http://127.0.0.1:5000/data"
 
                 new_data = {
-                    "color": result['name_color'],
-                    "disease_indication": result['disease'],
+                    "color": result["name_color"],
+                    "disease_indication": result["disease"],
                     "image": f"https://ik.imagekit.io/peeace/{random_file_name}",
-                    "pH": f"{ph_value:.2f}"
+                    "pH": f"{ph_value:.2f}",
                 }
 
                 print(new_data)
+
+                # [Trigger Buzzer]
+                beep_once()
 
                 response = requests.put(url, json=new_data)
 
@@ -123,6 +140,8 @@ if __name__ == "__main__":
                     print(f"Failed to update data. Status code: {response.status_code}")
                     print(response.json())
 
+                # [Trigger Buzzer]
+                beep_once()
 
                 # Nge False Firebase
                 update_relay_state()
@@ -130,7 +149,7 @@ if __name__ == "__main__":
                 # Exit the program after one iteration
 
                 print("=======================\nProgram Selesai")
-                
+
             else:
                 print("=======================\nProgram Tidak Berjalan")
 
