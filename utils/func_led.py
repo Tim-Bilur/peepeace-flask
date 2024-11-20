@@ -2,25 +2,43 @@ import RPi.GPIO as GPIO
 import time
 
 # Pin GPIO yang digunakan
-pin = 6
+PIN = 6
 
-# Setup GPIO
-GPIO.setmode(GPIO.BCM)  # Gunakan penomoran GPIO
-GPIO.setup(pin, GPIO.OUT)  # Atur pin 6 sebagai output
+def setup_gpio(pin):
+    """Inisialisasi GPIO untuk pin tertentu."""
+    GPIO.setmode(GPIO.BCM)  # Gunakan penomoran GPIO
+    GPIO.setup(pin, GPIO.OUT)  # Atur pin sebagai output
 
-try:
-    while True:
-        # Nyalakan LED pada pin 6
-        GPIO.output(pin, GPIO.HIGH)
-        print("LED pada pin 6 menyala!")
-        time.sleep(1)  # Tunggu 1 detik
+def turn_led_on(pin):
+    """Menyalakan LED pada pin tertentu."""
+    GPIO.output(pin, GPIO.HIGH)  # Nyalakan LED
+    print(f"LED pada pin {pin} menyala!")
 
-        # Matikan LED pada pin 6
-        GPIO.output(pin, GPIO.LOW)
-        print("LED pada pin 6 mati!")
-        time.sleep(1)  # Tunggu 1 detik sebelum mengulang
+def turn_led_off(pin):
+    """Mematikan LED pada pin tertentu."""
+    GPIO.output(pin, GPIO.LOW)  # Matikan LED
+    print(f"LED pada pin {pin} mati!")
 
-except KeyboardInterrupt:
-    print("Program dihentikan.")
-finally:
+def clean_gpio():
+    """Membersihkan GPIO setelah digunakan."""
     GPIO.cleanup()  # Reset status GPIO
+    print("GPIO dibersihkan.")
+
+def led_blink(pin, blink_interval=1):
+    """Menyala dan mematikan LED secara bergantian dengan interval tertentu."""
+    try:
+        while True:
+            turn_led_on(pin)
+            time.sleep(blink_interval)  # Tunggu selama interval detik
+            
+            turn_led_off(pin)
+            time.sleep(blink_interval)  # Tunggu selama interval detik
+    except KeyboardInterrupt:
+        print("Program dihentikan.")
+    finally:
+        clean_gpio()
+
+# Main program
+if __name__ == "__main__":
+    setup_gpio(PIN)  # Inisialisasi GPIO untuk pin
+    led_blink(PIN)  # Mulai mengedipkan LED
