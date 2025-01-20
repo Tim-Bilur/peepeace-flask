@@ -65,6 +65,8 @@ if __name__ == "__main__":
                 print("Capture Image")
                 capture_image()
 
+                time.sleep(10)
+
                 # Motor Stepper Memutar ke bawah
                 steps_per_revolution = 2048  # Number of steps for 360 degrees rotation
                 delay = 0.001  # Delay between steps
@@ -75,6 +77,8 @@ if __name__ == "__main__":
                 # Rotate clockwise
                 print("Rotating 360 degrees clockwise")
                 # rotate_clockwise(steps_per_revolution, delay)
+
+                time.sleep(5)
 
                 # Wait for 5 seconds
                 print("Waiting for 3 seconds for pH")
@@ -93,6 +97,8 @@ if __name__ == "__main__":
                 else:
                     print("Gagal membaca nilai pH dalam batas waktu yang ditentukan...")
 
+                time.sleep(10)
+
                 # [Trigger Buzzer]
                 beep_once()
 
@@ -100,8 +106,13 @@ if __name__ == "__main__":
                 print("Rotating 360 degrees counter-clockwise")
                 # rotate_counterclockwise(steps_per_revolution, delay)
 
+                # time.sleep(10)
+
                 # Predik warna
                 image_path = "tmp/captured_image.jpg"
+
+                # [Trigger Buzzer]
+                # beep_once()
 
                 # Extract RGB values from the image
                 rgb_value = extract_rgb_from_image(image_path)
@@ -115,6 +126,8 @@ if __name__ == "__main__":
                     print("Upload result:", upload_result)
 
                 print(result)
+
+                time.sleep(3)
 
                 # PUT the data
                 url = "http://127.0.0.1:5000/data"
@@ -139,6 +152,8 @@ if __name__ == "__main__":
                 else:
                     print(f"Failed to update data. Status code: {response.status_code}")
                     print(response.json())
+                
+                time.sleep(3)
 
                 # [Trigger Buzzer]
                 beep_once()

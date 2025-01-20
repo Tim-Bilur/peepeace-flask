@@ -52,3 +52,19 @@ def rotate_counterclockwise(steps_per_revolution, delay):
 
 def cleanup_gpio():
     GPIO.cleanup()
+
+# if '__name__' == "__main__":
+#     try:
+#         steps_per_revolution = 2048  # Number of steps for 360 degrees rotation
+#         delay = 0.001  # Delay between steps
+
+#         print("Rotating clockwise...")
+#         rotate_clockwise(steps_per_revolution, delay)
+
+#         print("Rotating counterclockwise...")
+#         rotate_counterclockwise(steps_per_revolution, delay)
+
+#     except KeyboardInterrupt:
+#         print("Program interrupted by user.")
+#     finally:
+#         cleanup_gpio()

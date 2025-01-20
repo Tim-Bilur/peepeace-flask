@@ -1,44 +1,66 @@
 import RPi.GPIO as GPIO
-import time
 
-# Pin GPIO yang digunakan
-PIN = 6
+# Define LED pins
+LED_PINS = {
+    "red": 10,
+    "yellow": 9,
+    "green": 11,
+}
 
-def setup_gpio(pin):
-    """Inisialisasi GPIO untuk pin tertentu."""
-    GPIO.setmode(GPIO.BCM)  # Gunakan penomoran GPIO
-    GPIO.setup(pin, GPIO.OUT)  # Atur pin sebagai output
+# Internal flag to check GPIO setup status
+GPIO_INITIALIZED = False
 
-def turn_led_on(pin):
-    """Menyalakan LED pada pin tertentu."""
-    GPIO.output(pin, GPIO.HIGH)  # Nyalakan LED
-    print(f"LED pada pin {pin} menyala!")
-
-def turn_led_off(pin):
-    """Mematikan LED pada pin tertentu."""
-    GPIO.output(pin, GPIO.LOW)  # Matikan LED
-    print(f"LED pada pin {pin} mati!")
+def setup_gpio():
+    """Initialize GPIO pins for LEDs."""
+    global GPIO_INITIALIZED
+    if not GPIO_INITIALIZED:
+        GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+        for pin in LED_PINS.values():
+            GPIO.setup(pin, GPIO.OUT)
+            GPIO.output(pin, GPIO.LOW)
+        GPIO_INITIALIZED = True
+        print("GPIO initialized.")
 
 def clean_gpio():
-    """Membersihkan GPIO setelah digunakan."""
-    GPIO.cleanup()  # Reset status GPIO
-    print("GPIO dibersihkan.")
+    """Clean up GPIO settings."""
+    global GPIO_INITIALIZED
+    if GPIO_INITIALIZED:
+        GPIO.cleanup()
+        GPIO_INITIALIZED = False
+        print("GPIO cleaned up.")
 
-def led_blink(pin, blink_interval=1):
-    """Menyala dan mematikan LED secara bergantian dengan interval tertentu."""
-    try:
-        while True:
-            turn_led_on(pin)
-            time.sleep(blink_interval)  # Tunggu selama interval detik
-            
-            turn_led_off(pin)
-            time.sleep(blink_interval)  # Tunggu selama interval detik
-    except KeyboardInterrupt:
-        print("Program dihentikan.")
-    finally:
-        clean_gpio()
+def led_green_on():
+    """Turn on the green LED."""
+    setup_gpio()  # Ensure GPIO is set up
+    GPIO.output(LED_PINS["green"], GPIO.HIGH)
+    print("Green LED ON.")
 
-# Main program
-if __name__ == "__main__":
-    setup_gpio(PIN)  # Inisialisasi GPIO untuk pin
-    led_blink(PIN)  # Mulai mengedipkan LED
+def led_green_off():
+    """Turn off the green LED."""
+    setup_gpio()  # Ensure GPIO is set up
+    GPIO.output(LED_PINS["green"], GPIO.LOW)
+    print("Green LED OFF.")
+
+def led_red_on():
+    """Turn on the red LED."""
+    setup_gpio()  # Ensure GPIO is set up
+    GPIO.output(LED_PINS["red"], GPIO.HIGH)
+    print("Red LED ON.")
+
+def led_red_off():
+    """Turn off the red LED."""
+    setup_gpio()  # Ensure GPIO is set up
+    GPIO.output(LED_PINS["red"], GPIO.LOW)
+    print("Red LED OFF.")
+
+def led_yellow_on():
+    """Turn on the yellow LED."""
+    setup_gpio()  # Ensure GPIO is set up
+    GPIO.output(LED_PINS["yellow"], GPIO.HIGH)
+    print("Yellow LED ON.")
+
+def led_yellow_off():
+    """Turn off the yellow LED."""
+    setup_gpio()  # Ensure GPIO is set up
+    GPIO.output(LED_PINS["yellow"], GPIO.LOW)
+    print("Yellow LED OFF.")

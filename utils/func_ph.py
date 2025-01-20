@@ -15,7 +15,6 @@ except Exception as e:
     print(f"Error initializing ADS1115: {e}")
     exit()
 
-
 # Function to read pH value within a specified duration
 def read_ph(timeout=10):
     start_time = time.time()
@@ -25,11 +24,8 @@ def read_ph(timeout=10):
             chan = AnalogIn(ads, ADS.P0)  # Example: Read from channel 0 (A0)
 
             # Calibration voltages (adjust these based on your calibration)
-            voltage_4 = 3.10
-            # Example: Replace with actual voltage for pH 4 calibration
-            voltage_7 = (
-                2.62  # Example: Replace with actual voltage for pH 7 calibration
-            )
+            voltage_4 = 3.10  # Voltage for pH 4 calibration
+            voltage_7 = 2.62  # Voltage for pH 7 calibration
 
             # Calculate pH step
             ph_step = (voltage_4 - voltage_7) / (7 - 4)
@@ -40,10 +36,15 @@ def read_ph(timeout=10):
             # Calculate pH value
             ph_value = (voltage_7 - voltage) / ph_step
 
-            # Print the pH value during testing
+            # Skip invalid pH values (negative)
+            if ph_value < 0:
+                print(f"Skipped invalid pH value: {ph_value:.2f}")
+                continue
+
+            # Print valid pH value during testing
             print(f"Calculated pH: {ph_value:.2f}")
 
-            # Update last_ph_value with the current reading
+            # Update last_ph_value with the current valid reading
             last_ph_value = ph_value
 
             time.sleep(0.5)  # Adjust the sleep duration as needed
@@ -52,7 +53,7 @@ def read_ph(timeout=10):
         print(f"Error reading pH: {e}")
         return None
 
-    # Return the last pH value read
+    # Return the last valid pH value read
     return last_ph_value
 
 

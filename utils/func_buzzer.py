@@ -43,5 +43,5 @@ def beep_once():
 
 
 # # Main program
-# if __name__ == "__main__":
-#     beep_once()
+if __name__ == "__main__":
+    beep_once()
